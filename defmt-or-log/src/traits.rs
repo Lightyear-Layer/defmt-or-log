@@ -2,6 +2,9 @@
 /// A trait that describes a type which can be logged with defmt or log, depending on the current configuration.
 pub trait FormatOrDebug {}
 
+#[cfg(not(any(feature = "defmt", feature = "log")))]
+impl<T> FormatOrDebug for T {}
+
 #[cfg(feature = "defmt")]
 /// A trait that describes a type which can be logged with defmt or log, depending on the current configuration.
 pub trait FormatOrDebug: defmt::Format {}
